@@ -57,7 +57,7 @@ public class GestorFerry {
     }
 
     public void habilitarSalida() {
-        ferryLleno.release(cantAutosFerry);
+        ferryLleno.release();
     }
 
     public void bajarAutoFerry() {
@@ -66,6 +66,7 @@ public class GestorFerry {
             mutexAutos.acquire();
             autos--;
             mutexAutos.release();
+            ferryLleno.release();//el auto que sale habilita al siguiente, salen uno detras del otro
             volverVacio.release();
         } catch (InterruptedException ex) {
             Logger.getLogger(GestorFerry.class.getName()).log(Level.SEVERE, null, ex);
